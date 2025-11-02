@@ -1,0 +1,39 @@
+ 513  git clone https://github.com/sammad00/two-tier-flask-app.git
+  514  ls
+  515  cd two-tier-flask-app/
+  516  ls
+  517  df -h
+  518  free -m
+  519  echo 3 > /proc/sys/vm/drop_caches
+  520  sudo echo 3 > /proc/sys/vm/drop_caches
+  521  sudo su
+  522  free -m
+  523  ls
+  524  cat Dockerfile
+  525  touch .env
+  526  vim .env
+  527  docker build -t flaskapp .
+  528  docker ps
+  529  docker ps -a
+  530  docker network create twotier
+  531  docker network  ls
+  532  docker inspect 15934241ff59
+  533  docker  run -d --name mysql -v myssql_data:/var/lib/mysql --network=twotier -e MYSQL_PASSWORD=admin -e MYSQL_USER=admin -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=tws_db -p 3306:3306   mysql:latest
+  534  docker ps
+  535  docker network 583ae821ab86
+  536  docker inspect  583ae821ab86
+  537  docker network ls
+  538  docker inspect  15934241ff59
+  539  docker images
+  540  docker run -d  -p 5000:5000 --network=twotier --name flask -e
+  541  MYSQL_HOST=mysql -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DB=tws_db  flaskapp:lastest
+  542  docker run -d  -p 5000:5000 --network=twotier --name flaskapp -e    MYSQL_HOST=mysql -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DB=tws_db  flaskapp:lastest
+  543  docker ps
+  544  docker run -d  -p 5000:5000 --network=twotier --name flaskapp -e    MYSQL_HOST=mysql -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DB=tws_db  flaskapp:lastest
+  545  docker run -d  -p 5000:5000 --network=twotier --name flaskapp -e    MYSQL_HOST=mysql -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DB=tws_db  flaskapp
+  546  docker ps
+  547  docker inspect twotier
+  548  docker ps -a
+  549  docker ps
+  550  docker exec -it 583ae821ab86 /bin/bash
+  551  history
