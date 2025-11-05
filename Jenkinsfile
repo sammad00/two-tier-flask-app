@@ -2,19 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('Code') {
+
+        stage('Code Checkout') {
             steps {
-                git url: "https://github.com/sammad00/two-tier-flask-app.git"
+                echo 'Cloning source code from GitHub...'
+                git url: 'https://github.com/sammad00/two-tier-flask-app.git'
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
+                echo 'Building Docker image...'
                 sh 'docker build -t two-tier-flask-app .'
             }
         }
 
-        stage('Test') {
+        stage('Test Phase') {
             steps {
                 echo 'Developer/Test phase complete...'
             }
@@ -22,9 +25,10 @@ pipeline {
 
         stage('Push to Docker Hub') {
             steps {
+                echo 'Pushing image to Docker Hub...'
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhubcred', 
-                    usernameVariable: 'DOCKER_HUB_USER', 
+                    credentialsId: 'dockerhubcred',
+                    usernameVariable: 'DOCKER_HUB_USER',
                     passwordVariable: 'DOCKER_HUB_PASS'
                 )]) {
                     sh '''
@@ -36,11 +40,12 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy Container') {
             steps {
-                sh 'docker compose up -d --build'
-
-
+                echo 'Deploying container using Docker Compose...'
+                sh '''
+                    docker-compose up -d --build
+                '''
             }
         }
     }
